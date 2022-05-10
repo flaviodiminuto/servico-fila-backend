@@ -1,7 +1,6 @@
 package br.com.flaviodiminuto.usecase;
 
-import br.com.flaviodiminuto.Status;
-import br.com.flaviodiminuto.controller.model.Pedido;
+import br.com.flaviodiminuto.StatusPedido;
 import br.com.flaviodiminuto.dataprovider.entity.PedidoEntity;
 import br.com.flaviodiminuto.dataprovider.repository.PedidoRepository;
 
@@ -21,11 +20,11 @@ public class PedidoAtualizaStatusUseCase {
         if(pedidoPersistido.isEmpty()) return null;
         PedidoEntity pedido = pedidoPersistido.get();
 
-        if (pedido.getStatusNaFila() == Status.EM_PREPARACAO) {
-            pedido.setStatusNaFila(Status.AGUARDANDO_RETIRADA);
+        if (pedido.getStatusPedidoNaFila() == StatusPedido.EM_PREPARACAO) {
+            pedido.setStatusPedidoNaFila(StatusPedido.AGUARDANDO_RETIRADA);
             pedido.setDataHoraPreparo(LocalDateTime.now());
-        } else if(pedido.getStatusNaFila() == Status.AGUARDANDO_RETIRADA){
-            pedido.setStatusNaFila(Status.PEDIDO_RETIRADO);
+        } else if(pedido.getStatusPedidoNaFila() == StatusPedido.AGUARDANDO_RETIRADA){
+            pedido.setStatusPedidoNaFila(StatusPedido.PEDIDO_RETIRADO);
             pedido.setDataHoraEntrega(LocalDateTime.now());
         }
         repository.atualizaStatusPedido(pedido);

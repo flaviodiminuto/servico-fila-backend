@@ -11,7 +11,7 @@ public class PedidoMapper {
                 .dataHoraSolicitacao(entity.getDataHoraSolicitacao())
                 .dataHoraPreparo(entity.getDataHoraPreparo())
                 .dataHoraEntrega(entity.getDataHoraEntrega())
-                .statusNaFila(entity.getStatusNaFila())
+                .statusPedidoNaFila(entity.getStatusPedidoNaFila())
                 .build();
     }
 
@@ -22,7 +22,7 @@ public class PedidoMapper {
                 .dataHoraSolicitacao(model.dataHoraSolicitacao)
                 .dataHoraPreparo(model.dataHoraPreparo)
                 .dataHoraEntrega(model.dataHoraEntrega)
-                .statusNaFila(model.statusNaFila)
+                .statusPedidoNaFila(model.statusPedidoNaFila)
                 .build();
     }
 }

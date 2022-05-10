@@ -1,6 +1,6 @@
 package br.com.flaviodiminuto.dataprovider.entity;
 
-import br.com.flaviodiminuto.Status;
+import br.com.flaviodiminuto.StatusPedido;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -26,7 +26,7 @@ public class PedidoEntity extends PanacheEntityBase {
 
     @Column(name = "status_na_fila")
     @ColumnDefault("0")
-    private Status statusNaFila;
+    private StatusPedido statusPedidoNaFila;
 
     @Column(name = "data_hora_solicitacao")
     private LocalDateTime dataHoraSolicitacao;

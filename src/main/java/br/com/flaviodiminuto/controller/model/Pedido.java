@@ -1,6 +1,6 @@
 package br.com.flaviodiminuto.controller.model;
 
-import br.com.flaviodiminuto.Status;
+import br.com.flaviodiminuto.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class Pedido{
     public String nome_cliente;
 
     @JsonProperty("status_na_fila")
-    public Status statusNaFila;
+    public StatusPedido statusPedidoNaFila;
 
     @JsonProperty("data_hora_solicitacao")
     public LocalDateTime dataHoraSolicitacao;

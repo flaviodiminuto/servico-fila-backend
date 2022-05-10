@@ -1,9 +1,9 @@
 package br.com.flaviodiminuto.controller;
 
-import br.com.flaviodiminuto.dataprovider.entity.FilaEntity;
 import br.com.flaviodiminuto.controller.mapper.FilaMapper;
 import br.com.flaviodiminuto.controller.mapper.PedidoMapper;
 import br.com.flaviodiminuto.controller.model.Pedido;
+import br.com.flaviodiminuto.dataprovider.entity.FilaEntity;
 import br.com.flaviodiminuto.usecase.FilaAdicionaPedidoUseCase;
 import br.com.flaviodiminuto.usecase.FilaFindByDataUsecase;
 import br.com.flaviodiminuto.usecase.FilaNovaSaveUsecase;
@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

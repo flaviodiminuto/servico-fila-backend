@@ -4,36 +4,38 @@ import br.com.flaviodiminuto.controller.mapper.FilaMapper;
 import br.com.flaviodiminuto.controller.mapper.PedidoMapper;
 import br.com.flaviodiminuto.controller.model.Pedido;
 import br.com.flaviodiminuto.dataprovider.entity.FilaEntity;
-import br.com.flaviodiminuto.usecase.FilaAdicionaPedidoUseCase;
+import br.com.flaviodiminuto.dataprovider.entity.PedidoEntity;
 import br.com.flaviodiminuto.usecase.FilaFindByDataUsecase;
 import br.com.flaviodiminuto.usecase.FilaNovaSaveUsecase;
+import br.com.flaviodiminuto.usecase.PedidoFindByStatusUseCase;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameters;
+import org.hibernate.validator.constraints.Range;
+import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/filas")
 public class FilasResource {
-
-    DateTimeFormatter dataBrFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Inject
     public FilaFindByDataUsecase filaFindByDataUsecase;
     @Inject
     public FilaNovaSaveUsecase filaNovaSaveUsecase;
     @Inject
-    public FilaAdicionaPedidoUseCase adicionaPedidoUseCase;
+    PedidoFindByStatusUseCase pedidosFindByStatusUseCase;
 
     @GET
-    public Response listaAsUltimasCemFilas() {
+    public Response getFila() {
         var fila = filaFindByDataUsecase.execute(LocalDate.now());
         return Response.ok(fila.orElse(null)).build();
     }
@@ -45,16 +47,18 @@ public class FilasResource {
         return Response.ok(FilaMapper.toModel(fila)).build();
     }
 
-    @POST
-    @Path("/pedidos")
-    @Transactional
-    public Response adicionarPedido( @Valid Pedido pedido){
-        pedido.dataHoraSolicitacao = LocalDateTime.now();
-        pedido.nome_cliente = pedido.nome_cliente.toUpperCase();
-        FilaEntity fila;
-        Optional<FilaEntity> filaOptional = filaFindByDataUsecase.execute(LocalDate.now());
-        fila = filaOptional.orElse(filaNovaSaveUsecase.execute(LocalDate.now()));
-        adicionaPedidoUseCase.executar(fila, PedidoMapper.toEntity(pedido));
-        return Response.status(Response.Status.CREATED).build();
+
+    @GET
+    @Path("/{id}/pedidos")
+    public Response listaPedidosPorFila(@PathParam ("id")Long filaId,
+                                        @Range(min = 0,max = 2) @QueryParam
+                                 int status){
+        List<PedidoEntity> pedidos = pedidosFindByStatusUseCase.executar(status, filaId);
+        List<Pedido> pedidosModel = pedidos
+                .stream()
+                .map(PedidoMapper::toModel)
+                .collect(Collectors.toList());
+
+        return Response.ok(pedidosModel).build();
     }
 }

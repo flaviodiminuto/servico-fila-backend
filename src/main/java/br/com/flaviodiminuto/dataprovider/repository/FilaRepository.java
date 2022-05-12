@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @ApplicationScoped
 public class FilaRepository implements PanacheRepositoryBase<FilaEntity, Long> {
-    private Logger logger = LoggerFactory.getLogger( getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger( getClass().getName());
 
     public FilaEntity save(FilaEntity entity){
         if(entity == null) {
@@ -24,12 +24,11 @@ public class FilaRepository implements PanacheRepositoryBase<FilaEntity, Long> {
 
         if(findByDataOptional(data).isPresent()) {
             logger.warn("Fila já existe " + entity);
-            return entity;
         } else {
             logger.warn("Salvando nova fila " + entity);
             entity.persist();
-            return entity;
         }
+        return entity;
     }
 
     public Optional<FilaEntity> findByDataOptional(LocalDate data) {

@@ -19,7 +19,6 @@ public class FilaNovaSaveUsecase {
                 .data(data)
                 .pedidos(new ArrayList<>())
                 .build();
-        repository.save(fila);
-        return fila;
+        return repository.save(fila);
     }
 }

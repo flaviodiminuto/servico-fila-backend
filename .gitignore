@@ -35,8 +35,6 @@ nb-configuration.xml
 *.orig
 *.rej
 
-# Local environment
-.env
 
 .mvn
 /mvnw

@@ -1,67 +1,49 @@
-# servico-fila Project
+# servico-fila-backend Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Este projeto utiliza Quarkus, o Supersônico Subatômico Java Framework
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Se você quiser aprender mais sobre Quarkus, por favor visite este site: https://quarkus.io/
 
-## Running the application in dev mode
+## Requisitos para executar o projeto
+- Prompt de comando (CMD no windows, TERMINAL no Mac/Linux)
+- Java 11 ou superior configurado
+  - [Configurar variáveis de ambiente java](https://confluence.atlassian.com/confbr1/configurando-a-variavel-java_home-no-windows-933709538.html)
+- [Maven configurado](https://maven.apache.org/install.html)
+- [Docker instalado](https://docs.docker.com/engine/install/)
 
-You can run your application in dev mode that enables live coding using:
+## Clonando o projeto em seu computador
+
+Para ter o projeto execute o seguinte comando no terminal
+https://github.com/flaviodiminuto/servico-fila-backend.git
+
+![img.png](img.png)
+
+## Criando o container com o banco de dados
+
+Para a criação do banco de dados, com o docker instalado, realize o comando:
 ```shell script
-./mvnw compile quarkus:dev
+docker run --name postgres-filas -p 5432:5432 -e POSTGRES_PASSWORD=hibernate -e POSTGRES_USER=hibernate -e POSTGRES_DB=hibernate_db -d postgres
 ```
+> **_NOTA:_** Este comando inicializará o container com o usuário, senha e banco de dados definidos no arquivo .env no diretório raiz do projeto
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+## Executando a aplicação em modo desenvolvedor
 
-## Packaging and running the application
+Você pode executar a aplicação em modo desenvolvedor e fazer proveito do hot reload.
+Basta acessar o terminal (cmd), navegar até o diretório do projeto e executar o seguinte comando no terminal:
 
-The application can be packaged using:
 ```shell script
-./mvnw package
+mvn quarkus:dev
 ```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+![img_1.png](img_1.png)
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+> **_NOTA:_**  Quarkus disponibiliza uma interface no modo de desenvolvedor em http://localhost:8090/q/dev/.
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
+## Visualizando o contrato da API com o Swagger
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+Para visualizar o contrato da aplicação gerado pelo swagger, basta acessar o endereço http://localhost:8090/q/swagger-ui/ no seu navegador, enquanto o projeto estiver em execução.
 
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/servico-fila-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
+## Guias Relacionados
 
 - Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and JPA
 - RESTEasy JAX-RS ([guide](https://quarkus.io/guides/rest-json)): REST endpoint framework implementing JAX-RS and more
 
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)

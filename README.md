@@ -42,6 +42,14 @@ mvn quarkus:dev
 
 Para visualizar o contrato da aplicação gerado pelo swagger, basta acessar o endereço http://localhost:8090/q/swagger-ui/ no seu navegador, enquanto o projeto estiver em execução.
 
+## Utilizando aplicação front-end para testar o serviço
+
+Para testar este serviço é possível utilizar este projeto front-end.
+
+https://github.com/flaviodiminuto/servico-fila-frontend
+
+![img_2.png](img_2.png)
+
 ## Guias Relacionados
 
 - Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and JPA

@@ -14,7 +14,9 @@ Se você quiser aprender mais sobre Quarkus, por favor visite este site: https:/
 ## Clonando o projeto em seu computador
 
 Para ter o projeto execute o seguinte comando no terminal
-https://github.com/flaviodiminuto/servico-fila-backend.git
+```shell script
+git clone https://github.com/flaviodiminuto/servico-fila-frontend.git
+```
 
 ![img.png](img.png)
 
